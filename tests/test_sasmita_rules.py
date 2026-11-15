@@ -31,13 +31,17 @@ class TestSasmitaRules(unittest.TestCase):
         self.assertIsNotNone(resp_cia2)
         self.assertIn("March 23", resp_cia2)
 
-    def test_q17_syllabus(self):
-        resp_all = match_sasmita_rule("give me the syllabus for ai", KNOWLEDGE_BASE)
-        self.assertIsNotNone(resp_all)
-        self.assertIn("Unit 1", resp_all)
-        resp_unit2 = match_sasmita_rule("show unit 2 of ai syllabus", KNOWLEDGE_BASE)
-        self.assertIsNotNone(resp_unit2)
-        self.assertIn("Knowledge Representation", resp_unit2)
+def test_q17_syllabus(self):
+    resp_all = match_sasmita_rule(
+        "give me the syllabus for deep learning", KNOWLEDGE_BASE
+    )
+    self.assertIsNotNone(resp_all)
+    self.assertIn("Unit 1", resp_all)
 
+    resp_unit2 = match_sasmita_rule(
+        "show unit 2 of deep learning syllabus", KNOWLEDGE_BASE
+    )
+    self.assertIsNotNone(resp_unit2)
+    self.assertIn("Knowledge Representation", resp_unit2)
 if __name__ == "__main__":
     unittest.main()
