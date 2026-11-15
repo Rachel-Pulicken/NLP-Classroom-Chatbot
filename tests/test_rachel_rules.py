@@ -21,31 +21,36 @@ class TestRachelRules(unittest.TestCase):
         self.assertIn("30 Contact Hours", resp)
 
     def test_q18_subject_faculty(self):
-        resp_ai = match_rachel_rule("who teaches ai", KNOWLEDGE_BASE)
-        self.assertIsNotNone(resp_ai)
-        self.assertIn("Dr. Amos Bortiew", resp_ai)
+        # AI and DBMS are not subjects in this section's timetable, so test real subjects.
+        resp_dl = match_rachel_rule("who teaches dl", KNOWLEDGE_BASE)
+        self.assertIsNotNone(resp_dl)
+        self.assertIn("Dr. Amos Bortiew", resp_dl)
         resp_nlp = match_rachel_rule("who teaches nlp", KNOWLEDGE_BASE)
         self.assertIsNotNone(resp_nlp)
         self.assertIn("Dr. D Vinodha", resp_nlp)
-        resp_dbms = match_rachel_rule("which faculty handles dbms", KNOWLEDGE_BASE)
-        self.assertIsNotNone(resp_dbms)
-        self.assertIn("Prof. Deepa V.", resp_dbms)
+        resp_dip = match_rachel_rule("which faculty handles dip", KNOWLEDGE_BASE)
+        self.assertIsNotNone(resp_dip)
+        self.assertIn("Prof. Wims Magdalene Mary A", resp_dip)
 
     def test_q19_course_credits(self):
-        resp_ai = match_rachel_rule("how many credits does ai have", KNOWLEDGE_BASE)
-        self.assertIsNotNone(resp_ai)
-        self.assertIn("4 Credits", resp_ai)
-        resp_dbms = match_rachel_rule("what are the credits for dbms", KNOWLEDGE_BASE)
-        self.assertIsNotNone(resp_dbms)
-        self.assertIn("3 Credits", resp_dbms)
+        resp_dl = match_rachel_rule("how many credits does dl have", KNOWLEDGE_BASE)
+        self.assertIsNotNone(resp_dl)
+        self.assertIn("4 Credits", resp_dl)
+        resp_sir = match_rachel_rule("what are the credits for sir", KNOWLEDGE_BASE)
+        self.assertIsNotNone(resp_sir)
+        self.assertIn("3 Credits", resp_sir)
 
     def test_q21_mentor_mentee(self):
-        resp_roll = match_rachel_rule("who is my mentor for roll 15", KNOWLEDGE_BASE)
+        # Mentors are looked up by full registration number, not by short roll number.
+        resp_roll = match_rachel_rule("who is my mentor for roll 2462132", KNOWLEDGE_BASE)
         self.assertIsNotNone(resp_roll)
-        self.assertIn("Dr. K. Saravanan", resp_roll)
-        resp_prof = match_rachel_rule("which students are under professor deepa", KNOWLEDGE_BASE)
+        self.assertIn("Rachel Febin Pulicken", resp_roll)
+        self.assertIn("Dr Santhrupth B C", resp_roll)
+        resp_prof = match_rachel_rule("which students are under professor swati", KNOWLEDGE_BASE)
         self.assertIsNotNone(resp_prof)
-        self.assertIn("Roll 24 to 46", resp_prof)
+        self.assertIn("Prof Swati Raj", resp_prof)
+        self.assertIn("Total Mentees: 7", resp_prof)
+        self.assertIn("Vedant Joshi", resp_prof)
 
 if __name__ == "__main__":
     unittest.main()
